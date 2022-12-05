@@ -1,36 +1,86 @@
-import { useState } from 'react'
-import { DatePicker } from 'antd'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { Avatar, Button, Card, Col, Layout, Menu, Row, Space } from 'antd'
+import React, { useState } from 'react'
+import Icon, {
+  HomeOutlined,
+  UserOutlined,
+  ShopOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from '@ant-design/icons'
+
+const { Header, Footer, Sider, Content } = Layout
+
+const menuItems = [
+  {
+    key: '1',
+    label: 'Home',
+    icon: <HomeOutlined />,
+  },
+  {
+    key: '2',
+    label: 'Profile',
+    icon: <UserOutlined />,
+  },
+  {
+    key: '3',
+    label: 'Store',
+    icon: <ShopOutlined />,
+  },
+]
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [collapsed, setCollapsed] = useState(false)
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React + David!</h1>
-      <DatePicker style={{ marginRight: '8px' }} />
-      <DatePicker />
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <Layout style={{ height: '100vh' }}>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+      >
+        <div className="logo" />
+        <Menu mode="inline" theme="dark" items={menuItems}></Menu>
+      </Sider>
+
+      <Layout>
+        <Header>
+          <Icon type="menu" style={{ fontSize: '16px', color: '#FFF' }} />
+          <MenuUnfoldOutlined
+            onClick={() => setCollapsed(!collapsed)}
+            style={{ fontSize: '16px', color: '#FFF' }}
+          />
+        </Header>
+        <Content style={{ padding: 10 }}>
+          main content
+          <Row>
+            <Col>
+              <Space>
+                <Card
+                  title="Default size card"
+                  extra={<a href="#">More</a>}
+                  style={{ width: 300 }}
+                >
+                  <p>Card content</p>
+                  <p>Card content</p>
+                  <p>Card content</p>
+                </Card>
+                <Card
+                  size="small"
+                  title="Small size card"
+                  extra={<a href="#">More</a>}
+                  style={{ width: 300 }}
+                >
+                  <p>Card content</p>
+                  <p>Card content</p>
+                  <p>Card content</p>
+                </Card>
+              </Space>
+            </Col>
+          </Row>
+        </Content>
+      </Layout>
+    </Layout>
   )
 }
 
